@@ -45,6 +45,14 @@ let ``Lists.getLastButOne returns last but one element`` () =
 /// > elementAt (List.ofSeq "fsharp") 5;;
 /// val it : char = 'r'
 
+let ``Lists.elementAt returns the correct element by id`` () =
+    let expected = 6
+    let testList = [2;expected;12;3;8]
+    let k = 2    
+    let actual = testList
+                 |> Lists.elementAt 2
+    Assert.True((expected = actual))
+
 // [snippet: (*) Problem 4 : Find the number of elements of a list.]
 /// Example in F#: 
 /// 
@@ -52,6 +60,14 @@ let ``Lists.getLastButOne returns last but one element`` () =
 /// val it : int = 3
 /// > myLength <| List.ofSeq "Hello, world!"
 /// val it : int = 13 
+let ``Lists.myLength calculates the number of the elements in the list`` () =
+    let testList = [2;6;12;3;8]
+    let expected = List.length testList
+    
+    let actual = testList
+                 |> Lists.myLength
+    Assert.True((expected = actual))
+
 
 // [snippet: (*) Problem 5 : Reverse a list.]
 /// Example in F#: 
@@ -63,6 +79,13 @@ let ``Lists.getLastButOne returns last but one element`` () =
 ///   'A']
 /// > reverse [1,2,3,4];;
 /// val it : int list = [4; 3; 2; 1]
+let ``Lists.reverse reverses the list`` () =
+    let testList = [2;6;12;3;8]
+    let expected = List.rev testList
+    
+    let actual = testList
+                 |> Lists.reverse
+    Assert.True((expected = actual))
 
 // [snippet: (*) Problem 6 : Find out whether a list is a palindrome.]
 /// A palindrome can be read forward or backward; e.g. (x a m a x).
@@ -74,12 +97,13 @@ let ``Lists.getLastButOne returns last but one element`` () =
 /// val it : bool = true
 /// > isPalindrome [1;2;4;8;16;8;4;2;1];;
 /// val it : bool = true
-
-(*[omit:(Solution)]*)
-// A list is a palindrome is the list is equal to its reverse
-let isPalindrome xs = xs = List.rev xs
-(*[/omit]*)
-// [/snippet]
+let ``Lists.isPalindrome checks whether the list is a palindrome`` () =
+    let testList = List.ofSeq "madamimadam"
+    let expected = true
+    
+    let actual = testList
+                 |> Lists.isPalindrome
+    Assert.True((expected = actual))
 
 // [snippet: (**) Problem 7 : Flatten a nested list structure.]
 /// Transform a list, possibly holding lists as elements into a `flat' list by replacing each 
@@ -91,7 +115,7 @@ let isPalindrome xs = xs = List.rev xs
 ///  
 /// Example in F#: 
 /// 
-type 'a NestedList = List of 'a NestedList list | Elem of 'a
+// 
 ///
 /// > flatten (Elem 5);;
 /// val it : int list = [5]
@@ -99,6 +123,14 @@ type 'a NestedList = List of 'a NestedList list | Elem of 'a
 /// val it : int list = [1;2;3;4;5]
 /// > flatten (List [] : int NestedList);;
 /// val it : int list = []
+let ``Lists.flatten Transform a nested list into a `flat' list by replacing each list with its elements (recursively)`` () =
+    let testList = List [Elem 1; List [Elem 2; List [Elem 3; Elem 4]; Elem 5]]
+    let expected = [1;2;3;4;5]
+    
+    let actual = testList
+                 |> Lists.flatten
+    Assert.True((expected = actual))
+
 
 // [snippet: (**) Problem 8 : Eliminate consecutive duplicates of list elements.] 
 /// If a list contains repeated elements they should be replaced with a single copy of the 
@@ -112,6 +144,13 @@ type 'a NestedList = List of 'a NestedList list | Elem of 'a
 /// 
 /// > compress ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
 /// val it : string list = ["a";"b";"c";"a";"d";"e"]
+let ``Lists.compress eliminates consecutive duplicates of list elements`` () =
+    let testList = ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"]
+    let expected = ["a";"b";"c";"a";"d";"e"]
+    
+    let actual = testList
+                 |> Lists.compress
+    Assert.True((expected = actual))
 
 // [snippet: (**) Problem 9 : Pack consecutive duplicates of list elements into sublists.] 
 /// If a list contains repeated elements they should be placed 
@@ -129,6 +168,19 @@ type 'a NestedList = List of 'a NestedList list | Elem of 'a
 ///  [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; ['a'; 'a']; ['d'];
 ///   ['e'; 'e'; 'e'; 'e']]
 
+let ``Lists.pack packs consecutive duplicates of list elements into sublists`` () =
+    let testList = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
+    let expected = [['a'; 'a'; 'a'; 'a'];
+                    ['b'];
+                    ['c'; 'c'];
+                    ['a'; 'a'];
+                    ['d'];
+                    ['e'; 'e'; 'e'; 'e']]
+    
+    let actual = testList
+                 |> Lists.pack
+    Assert.True((expected = actual))
+
 // [snippet: (*) Problem 10 : Run-length encoding of a list.]
 /// Use the result of problem P09 to implement the so-called run-length 
 /// encoding data compression method. Consecutive duplicates of elements 
@@ -143,3 +195,10 @@ type 'a NestedList = List of 'a NestedList list | Elem of 'a
 /// encode <| List.ofSeq "aaaabccaadeeee"
 /// val it : (int * char) list =
 ///   [(4,'a');(1,'b');(2,'c');(2,'a');(1,'d');(4,'e')]
+let ``Lists.encode does run-length encoding of a list`` () =
+    let testList = List.ofSeq "aaaabccaadeeee"
+    let expected = [(4,'a');(1,'b');(2,'c');(2,'a');(1,'d');(4,'e')]
+    
+    let actual = testList
+                 |> Lists.encode
+    Assert.True((expected = actual))
