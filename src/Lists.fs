@@ -45,5 +45,19 @@ let compress (lst: 'a list) =
                 i :: acc)
         lst
         []
+    
+let pack lst = 
+    List.foldBack
+        (fun i acc ->
+            match acc with
+                | [] -> [[i]]
+                | x::xs when i = List.head x -> (i::x)::xs
+                | x -> [i]::x
+        )                    
+        lst
+        []
 
-let encode lst = crash()
+let encode lst = 
+    lst
+    |> pack
+    |> List.map (fun innerList -> innerList |> List.length, innerList |> List.head)
