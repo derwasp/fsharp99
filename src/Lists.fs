@@ -1,7 +1,5 @@
 module Lists
 
-// Problem 1 : Find the last element of a list.
-
 let crash() = raise (new System.NotImplementedException())
 
 let getLast lst = lst |>  List.rev |> List.head
@@ -36,7 +34,16 @@ let rec flatten lst =
             | List xs-> yield! xs |> List.collect flatten
         } |> List.ofSeq
 
-let compress lst = crash()
+let compress (lst: 'a list) = 
+    seq {
+        let mutable prev: 'a = null
+        
+        for itm in lst do
+            if itm <> prev then
+                yield itm
+            prev <- itm            
+            
+    } |> List.ofSeq
 
 let pack lst = crash()
 
