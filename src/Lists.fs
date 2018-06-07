@@ -50,7 +50,6 @@ let pack lst =
     List.foldBack
         (fun i acc ->
             match acc with
-                | [] -> [[i]]
                 | x::xs when i = List.head x -> (i::x)::xs
                 | x -> [i]::x
         )                    
