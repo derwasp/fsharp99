@@ -35,16 +35,15 @@ let rec flatten lst =
         } |> List.ofSeq
 
 let compress (lst: 'a list) = 
-    seq {
-        let mutable prev: 'a = null
-        
-        for itm in lst do
-            if itm <> prev then
-                yield itm
-            prev <- itm            
-            
-    } |> List.ofSeq
-
-let pack lst = crash()
+    List.foldBack
+        (fun i acc -> 
+            if acc |> List.isEmpty then
+                [i]
+            elif i = List.head acc then
+                acc
+            else
+                i :: acc)
+        lst
+        []
 
 let encode lst = crash()
