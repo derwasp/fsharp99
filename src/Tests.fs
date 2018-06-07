@@ -2,6 +2,7 @@ module Tests
 
 open System
 open Xunit
+open Swensen.Unquote
 
 
 // [snippet: (*) Problem 1 : Find the last element of a list.]
@@ -16,7 +17,7 @@ let ``Lists.getLast returns last element`` () =
     let expected = 1
     let testList = [2; 3; expected]
     let actual = testList |> Lists.getLast
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (*) Problem 2 : Find the last but one element of a list.]
 /// (Note that the Lisp transcription of this problem is incorrect.) 
@@ -32,7 +33,7 @@ let ``Lists.getLastButOne returns last but one element`` () =
     let expected = 1
     let testList = [2; expected; 3]
     let actual = testList |> Lists.getLastButOne
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (*) Problem 3 : Find the K'th element of a list. The first element in the list is number 1.]
 /// Example: 
@@ -52,7 +53,7 @@ let ``Lists.elementAt returns the correct element by id`` () =
     let actual = 
         testList
         |> Lists.elementAt 2
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (*) Problem 4 : Find the number of elements of a list.]
 /// Example in F#: 
@@ -68,7 +69,7 @@ let ``Lists.myLength calculates the number of the elements in the list`` () =
     
     let actual = testList
                  |> Lists.myLength
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 
 // [snippet: (*) Problem 5 : Reverse a list.]
@@ -88,7 +89,7 @@ let ``Lists.reverse reverses the list`` () =
     
     let actual = testList
                  |> Lists.reverse
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (*) Problem 6 : Find out whether a list is a palindrome.]
 /// A palindrome can be read forward or backward; e.g. (x a m a x).
@@ -107,7 +108,7 @@ let ``Lists.isPalindrome checks whether the list is a palindrome`` () =
     
     let actual = testList
                  |> Lists.isPalindrome
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (**) Problem 7 : Flatten a nested list structure.]
 /// Transform a list, possibly holding lists as elements into a `flat' list by replacing each 
@@ -134,7 +135,7 @@ let ``Lists.flatten Transform a nested list into a `flat' list by replacing each
     
     let actual = testList
                  |> Lists.flatten
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 
 // [snippet: (**) Problem 8 : Eliminate consecutive duplicates of list elements.] 
@@ -156,7 +157,7 @@ let ``Lists.compress eliminates consecutive duplicates of list elements`` () =
     
     let actual = testList
                  |> Lists.compress
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (**) Problem 9 : Pack consecutive duplicates of list elements into sublists.] 
 /// If a list contains repeated elements they should be placed 
@@ -185,7 +186,7 @@ let ``Lists.pack packs consecutive duplicates of list elements into sublists`` (
     
     let actual = testList
                  |> Lists.pack
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
 
 // [snippet: (*) Problem 10 : Run-length encoding of a list.]
 /// Use the result of problem P09 to implement the so-called run-length 
@@ -208,4 +209,4 @@ let ``Lists.encode does run-length encoding of a list`` () =
     
     let actual = testList
                  |> Lists.encode
-    Assert.True((expected = actual))
+    test <@ expected = actual @>
