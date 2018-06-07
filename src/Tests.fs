@@ -44,13 +44,14 @@ let ``Lists.getLastButOne returns last but one element`` () =
 /// val it : int = 2
 /// > elementAt (List.ofSeq "fsharp") 5;;
 /// val it : char = 'r'
-
+[<Fact>]
 let ``Lists.elementAt returns the correct element by id`` () =
     let expected = 6
     let testList = [2;expected;12;3;8]
     let k = 2    
-    let actual = testList
-                 |> Lists.elementAt 2
+    let actual = 
+        testList
+        |> Lists.elementAt 2
     Assert.True((expected = actual))
 
 // [snippet: (*) Problem 4 : Find the number of elements of a list.]
@@ -60,6 +61,7 @@ let ``Lists.elementAt returns the correct element by id`` () =
 /// val it : int = 3
 /// > myLength <| List.ofSeq "Hello, world!"
 /// val it : int = 13 
+[<Fact>]
 let ``Lists.myLength calculates the number of the elements in the list`` () =
     let testList = [2;6;12;3;8]
     let expected = List.length testList
@@ -79,6 +81,7 @@ let ``Lists.myLength calculates the number of the elements in the list`` () =
 ///   'A']
 /// > reverse [1,2,3,4];;
 /// val it : int list = [4; 3; 2; 1]
+[<Fact>]
 let ``Lists.reverse reverses the list`` () =
     let testList = [2;6;12;3;8]
     let expected = List.rev testList
@@ -97,6 +100,7 @@ let ``Lists.reverse reverses the list`` () =
 /// val it : bool = true
 /// > isPalindrome [1;2;4;8;16;8;4;2;1];;
 /// val it : bool = true
+[<Fact>]
 let ``Lists.isPalindrome checks whether the list is a palindrome`` () =
     let testList = List.ofSeq "madamimadam"
     let expected = true
@@ -123,6 +127,7 @@ let ``Lists.isPalindrome checks whether the list is a palindrome`` () =
 /// val it : int list = [1;2;3;4;5]
 /// > flatten (List [] : int NestedList);;
 /// val it : int list = []
+[<Fact>]
 let ``Lists.flatten Transform a nested list into a `flat' list by replacing each list with its elements (recursively)`` () =
     let testList = List [Elem 1; List [Elem 2; List [Elem 3; Elem 4]; Elem 5]]
     let expected = [1;2;3;4;5]
@@ -144,6 +149,7 @@ let ``Lists.flatten Transform a nested list into a `flat' list by replacing each
 /// 
 /// > compress ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
 /// val it : string list = ["a";"b";"c";"a";"d";"e"]
+[<Fact>]
 let ``Lists.compress eliminates consecutive duplicates of list elements`` () =
     let testList = ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"]
     let expected = ["a";"b";"c";"a";"d";"e"]
@@ -167,7 +173,7 @@ let ``Lists.compress eliminates consecutive duplicates of list elements`` () =
 /// val it : char list list =
 ///  [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; ['a'; 'a']; ['d'];
 ///   ['e'; 'e'; 'e'; 'e']]
-
+[<Fact>]
 let ``Lists.pack packs consecutive duplicates of list elements into sublists`` () =
     let testList = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
     let expected = [['a'; 'a'; 'a'; 'a'];
@@ -195,6 +201,7 @@ let ``Lists.pack packs consecutive duplicates of list elements into sublists`` (
 /// encode <| List.ofSeq "aaaabccaadeeee"
 /// val it : (int * char) list =
 ///   [(4,'a');(1,'b');(2,'c');(2,'a');(1,'d');(4,'e')]
+[<Fact>]
 let ``Lists.encode does run-length encoding of a list`` () =
     let testList = List.ofSeq "aaaabccaadeeee"
     let expected = [(4,'a');(1,'b');(2,'c');(2,'a');(1,'d');(4,'e')]
